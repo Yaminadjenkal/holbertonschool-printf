@@ -11,9 +11,6 @@ git clone https://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@github.com/Yaminadjen
 #Printf
 This project aims to demonstrate how to create a printf function
 
-##contributeurs
-- **Djenkal Yamina** - [GitHub](https://github.com/Yaminadjenkal)
-- **Sakho Zeynab** - [GitHub](https://github.com/Zineb749)
 
 ##To install the project you have to :
 1. Clone the repository :
@@ -58,7 +55,9 @@ This will output : Let's try to printf a simple sentence.
 ## License
 This project is licensed under the MIT License.
 
-
+##contributeurs
+- **Djenkal Yamina** - [GitHub](https://github.com/Yaminadjenkal)
+- **Sakho Zeynab** - [GitHub](https://github.com/Zineb749)
 
 
 NEW
