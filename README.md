@@ -32,6 +32,9 @@ return (0);
 }
 This will output : Let's try to printf a simple sentence.
 
+## Project Diagram : 
+You can view the project diagram by following this : https://lucid.app/lucidchart/69365634-5427-4728-aa98-d8a2d097ab58/edit?viewport_loc=-31%2C-815%2C1507%2C787%2C0_0&invitationId=inv_1929c86d-94a0-4f02-8ba3-5b117c8a1128
+
 ## License
 This project is licensed under the MIT Licence
 ##contributeurs
