@@ -1,39 +1,38 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 /**
- * _printf - Function that prints formatted output with modulo
- *
- * @format: Types of arguments passed to function
- * Return: Number of characters printed
+ * _printf_modulo - Custom implementation for printing modulos.
+ * @format: A null-terminated string that specifies the format of the output.
  */
 int _printf_modulo(const char *format, ...)
 {
-	int count = 0;
 	va_list args;
-
-	if (format == NULL)
-		return (-1);
-
 	va_start(args, format);
 
 	while (*format)
 	{
-		if (*format == '%' && *(format + 1) == '%')
+		if (*format == '%')
 		{
-			putchar('%');
-			count++;
 			format++;
+			if (*format == '%')
+			{
+				putchar('%');
+			}
+			else
+			{
+				putchar('%');
+				putchar(*format);
+			}
 		}
 		else
 		{
 			putchar(*format);
-			count++;
 		}
 		format++;
 	}
 
 	va_end(args);
-	return (count);
+	return (0);
 }
