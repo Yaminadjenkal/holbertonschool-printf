@@ -3,7 +3,7 @@
 #include <stdarg.h>
 
 /**
- * _printf_modulo - Function that prints formatted output with modulo
+ * _printf - Function that prints formatted output with modulo
  *
  * @format: Types of arguments passed to function
  * Return: Number of characters printed
