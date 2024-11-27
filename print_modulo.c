@@ -3,12 +3,12 @@
 #include <stdarg.h>
 
 /**
- * _printf - Function that prints formatted output with modulo
+ * _printf_modulo - Function that prints formatted output with modulo
  *
  * @format: Types of arguments passed to function
  * Return: Number of characters printed
  */
-int _printf(const char *format, ...)
+int _printf_modulo(const char *format, ...)
 {
 	int count = 0;
 	va_list args;
@@ -35,5 +35,5 @@ int _printf(const char *format, ...)
 	}
 
 	va_end(args);
-	return count;
+	return (count);
 }
