@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
 /**
  * print_d - Function to handle the %d specifier.
@@ -12,6 +13,9 @@ int print_d(va_list args)
 	int num = va_arg(args, int);
 	char buffer[50];
 	int len = 0;
+	int temp;
+	int count;
+	int i;
 
 	if (num < 0)
 	{
@@ -19,13 +23,14 @@ int print_d(va_list args)
 		num = -num;
 	}
 
-	int temp = num;
-
+	temp = num;
 	do
 		len++;
-	{	temp /= 10;
-	} while (temp != 0);
+	{
+		while (temp != 0);
 
+		temp /= 10;
+	}
 	buffer[len] = '\0';
 
 	while (num != 0)
@@ -34,9 +39,8 @@ int print_d(va_list args)
 		num /= 10;
 	}
 
-	int count = 0;
-
-	for (int i = 0; buffer[i] != '\0'; i++)
+	count = 0;
+	for (i = 0; buffer[i] != '\0'; i++)
 	{
 		write(1, &buffer[i], 1);
 		count++;
