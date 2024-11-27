@@ -1,0 +1,35 @@
+NAME
+_printf - function in C is a standard library function used for output
+
+SYNOPSIS
+
+#include <main.h>
+int _printf(const char *format, ...)
+
+DESCRIPTION 
+The printf function sends formatted output to the standard output stream (usually the screen)
+It takes a format string that specifies how subsequent arguments are converted for output 
+The format string can include:
+Ordinary characters (which are copied directly to the output)
+Conversion specifiers (beginning with %), which define how to format and display the arguments that follow the format string
+
+RETURN VALUE
+Returns: the number of characters printed (excluding the null byte used to end output to strings)
+
+ERRORS
+EILSEQ: An invalid character sequence is encountered during conversion
+ENOMEM: Insufficient memory to allocate the necessary conversion
+EFAULT: Invalid memory address for one of the arguments
+
+EXEMPLES
+#include <main.h>
+int main (void)
+{
+int len;
+ len = _printf("Let's try to printf a simple sentence.\n");
+return (0); 
+}
+
+AUTHOR 
+Sakho Zeynab
+Djenkal Yamina
