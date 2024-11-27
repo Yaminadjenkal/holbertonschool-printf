@@ -9,6 +9,7 @@
 /**
  * _printf - Custom implementation of the printf function for formatted output.
  * @format: A null-terminated string that specifies the format of the output.
+ * Return: The number of characters printed excluding the null byte used
  */
 
 
@@ -16,6 +17,7 @@ int _printf(const char *format, ...)
 
 {
 	va_list args;
+
 	va_start(args, format);
 
 	while (*format)
@@ -26,6 +28,7 @@ int _printf(const char *format, ...)
 			if (*format == 'c')
 			{
 				char value = (char)va_arg(args, int);
+
 				putchar(value);
 			}
 			else
@@ -40,9 +43,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-
 	va_end(args);
-	
-	return(0);
+	return (0);
 }
 
