@@ -15,5 +15,12 @@ int _printf(const char *format, ...);
  */
 int _printf_modulo(const char *format, ...);
 
+/*
+ * print_d - Function to handle the %d specifier.
+ * @args: A va_list containing the integer to print.
+ * Return: The number of characters printed.
+ */
+int print_d(va_list args);
+
 #endif /* MAIN_H */
 
