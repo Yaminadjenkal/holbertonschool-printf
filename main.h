@@ -2,7 +2,6 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <unistd.h>
 
 typedef struct print_type
 {
@@ -11,9 +10,14 @@ typedef struct print_type
 } print_type;
 
 int _printf(const char *format, ...);
+int handle_negative(int num, char *buffer, int *len);
+int calculate_length(int num);
+void convert_to_string(int num, char *buffer, int len);
+int print_d(va_list args);
+int print_i(va_list args);
 int print_char(va_list args);
-int print_integer(va_list args);
-int print_decimal(va_list args);
 int print_string(va_list args);
+int print_modulo(va_list args);
 
 #endif /* MAIN_H */
+
