@@ -1,18 +1,26 @@
+#include <stdio.h>
+#include <stdarg.h>
 #include "main.h"
 
-int print_string(va_list args)
+/**
+ * _printf_string - print a string of characters
+ * @args: char
+ * Return: count
+ */
+
+int _printf_string(va_list args)
 {
-    char *str = va_arg(args, char *);
-    int count = 0;
+	int count = 0;
+	char *str = va_arg(args, char *);
 
-    if (!str)
-        str = "(null)";
+	if (str == NULL)
+		str = "(null)";
 
-    while (str[count])
-    {
-        _putchar(str[count]);
-        count++;
-    }
-    return count;
+	while (*str != 0)
+	{
+		_putchar(*str);
+		str++;
+		count++;
+	}
+	return (count);
 }
-

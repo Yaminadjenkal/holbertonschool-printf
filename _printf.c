@@ -1,140 +1,77 @@
+#include "main.h"
+#include <stdio.h>
 #include <stdarg.h>
-#include <unistd.h>
 
-int _putchar(char c)
-{
-    return write(1, &c, 1);
-}
-
-int print_char(va_list args)
-{
-    char c = va_arg(args, int);
-    return _putchar(c);
-}
-
-int print_string(va_list args)
-{
-    char *str = va_arg(args, char *);
-    int count = 0;
-
-    if (!str)
-        str = "(null)";
-
-    while (str[count])
-    {
-        _putchar(str[count]);
-        count++;
-    }
-    return count;
-}
-
-int print_percent(va_list args)
-{
-    (void)args;
-    return _putchar('%');
-}
-
-int print_integer(va_list args)
-{
-    int num = va_arg(args, int);
-    int count = 0;
-    char buffer[20];
-    int i = 0;
-
-    if (num == 0)
-    {
-        return _putchar('0');
-    }
-
-    if (num < 0)
-    {
-        count += _putchar('-');
-        num = -num;
-    }
-
-    while (num > 0)
-    {
-        buffer[i++] = (num % 10) + '0';
-        num /= 10;
-    }
-
-    for (int j = i - 1; j >= 0; j--)
-    {
-        count += _putchar(buffer[j]);
-    }
-
-    return count;
-}
-
-typedef struct format_specifier
-{
-    char specifier;
-    int (*func)(va_list args);
-} format_specifier;
-
+/**
+ * _printf - Print and formate a string
+ * @format: String to print and to formated
+ * Return: (int)
+ */
 int _printf(const char *format, ...)
 {
-    va_list args;
-    int i = 0, count = 0;
+	int i = 0, inc, count = 0;
+	char c1, c2;
+	va_list args;
 
-    format_specifier specs[] = {
-        {'c', print_char},
-        {'s', print_string},
-        {'%', print_percent},
-        {'i', print_integer},
-        {'d', print_integer},
-    };
+	va_start(args, format);
+	while (format[i] != '\0')
+	{
+		int printed = 0;
+		int (*f)(va_list args);
 
-    va_start(args, format);
+		c1 = format[i];
+		inc = 1;
 
-    while (format && format[i])
-    {
-        if (format[i] == '%')
-        {
-            i++;
-            int found = 0;
-
-            for (int j = 0; j < 5; j++)
-            {
-                if (format[i] == specs[j].specifier)
-                {
-                    count += specs[j].func(args);
-                    found = 1;
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                _putchar('%');
-                _putchar(format[i]);
-                count += 2;
-            }
-        }
-        else
-        {
-            _putchar(format[i]);
-            count++;
-        }
-        i++;
-    }
-
-    va_end(args);
-    return count;
+		if (c1 == '%')
+		{
+			c2 = format[i + 1];
+			if (c2 == '\0')
+			{
+				va_end(args);
+				return (-1);
+			}
+			f = get_format_function(c2);
+			if (f)
+			{
+				count += f(args);
+				inc = 2;
+				printed = 1;
+			}
+		}
+		if (printed == 0)
+		{
+			count += 1;
+			_putchar(c1);
+		}
+		i += inc;
+	}
+	va_end(args);
+	return (count);
 }
 
-int main(void)
+/**
+ * get_format_function - function to return the function format
+ * @c2: character to check
+ * Return: Function or NULL
+ */
+int (*get_format_function(char c2))(va_list)
 {
-    int count;
+	int ii;
+	format_t ftypes[] = {
+		{"c", _printf_char},
+		{"s", _printf_string},
+		{"i", _printf_integer},
+		{"d", _printf_integer},
+		{"%", _printf_percent},
+		{"u", _printf_unsignedint},
+	};
 
-    count = _printf("Hello %s! Your grade is %c.\n", "Alice", 'A');
-    _putchar('\n');
-    count = _printf("This is a percentage: %%\n");
-    _putchar('\n');
-    count = _printf("Number: %i\n", 12345);
-    _putchar('\n');
-    count = _printf("Negative Number: %d\n", -6789);
-    _putchar('\n');
-
-    return 0;
+	for (ii = 0; ii < 6; ii++)
+	{
+		if (ftypes[ii].op[0] == c2)
+		{
+			return (ftypes[ii].f);
+		}
+	}
+	return (NULL);
 }
