@@ -26,9 +26,9 @@ int print_d(va_list args)
 	temp = num;
 	do
 		len++;
-	{
-		while (temp != 0);
 
+		while (temp != 0);
+		{
 		temp /= 10;
 	}
 	buffer[len] = '\0';
