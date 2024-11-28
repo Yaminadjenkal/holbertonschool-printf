@@ -1,28 +1,23 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
- * print_str - prints string
- *
- * @list: A variable list of type va_list of stdarg.h
- * Return: Int - Number of characters printed
+ * print_string - Function that prints a string
+ * @args: Argument list containing the string to be printed
+ * Return: The number of characters printed
  */
-int print_str(va_list list)
+int print_string(va_list args)
 {
-	int count;
-	char *s;
+    char *s = va_arg(args, char *);
+    int count = 0;
 
-	s = va_arg(list, char*);
+    if (s == NULL)
+        s = "(null)";  // Gérer les cas où la chaîne est NULL
 
-	if (*s == '\0')
-		return (0);
-
-	count = 0;
-
-	while (*s)
-	{
-		count += write(1, s, 1);
-		s++;
-	}
-
-	return (count);
+    while (s[count])
+    {
+        count += write(1, &s[count], 1);
+    }
+    return count;
 }
+

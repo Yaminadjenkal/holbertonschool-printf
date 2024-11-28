@@ -27,7 +27,8 @@ int print_integer(va_list args)
         n /= 10;
     }
 
-    for (int j = i - 1; j >= 0; j--)
+    int j;  // Déclaration en dehors de la boucle
+    for (j = i - 1; j >= 0; j--)
         count += write(1, &buffer[j], 1);
 
     return count;

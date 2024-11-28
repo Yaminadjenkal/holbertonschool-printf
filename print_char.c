@@ -8,6 +8,7 @@
  */
 int print_char(va_list args)
 {
-    return (write(1, &va_arg(args, int), 1));
+    char c = va_arg(args, int);  // va_arg renvoie un int, on peut directement l'assigner à un char
+    return (write(1, &c, 1));    // Pas besoin de & sur va_arg
 }
 
