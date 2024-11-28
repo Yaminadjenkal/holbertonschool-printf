@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "main.h"
 
 int handle_negative(int num, char *buffer, int *len)
 {
