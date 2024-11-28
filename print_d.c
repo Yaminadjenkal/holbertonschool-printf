@@ -1,5 +1,4 @@
 #include "main.h"
-#include "main.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -8,10 +7,10 @@
  * print_d - Fonction pour gérer le spécificatr
  * @args: Une va_list contenant l'entier imprimer
  *
- * Description : Cette fonction récupère un entier de la va_lt
- *et l'imprime. Elle gère les nombres négatifs en ajouta
- *un signe moins, et convertit l'entier en chaîne de caractèr
- *pour l'impression.
+ * Description : Cette fonction récupère un enti
+ *et l'imprime. Elle gère les nombres négatifs en ajount
+ *un signe moins, et convertit l'entier en chaîne de caract�es
+ *pour l'impression
  *
  * Return: Le nombre de caractères imprim�
  */
