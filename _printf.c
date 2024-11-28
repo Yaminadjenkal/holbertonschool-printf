@@ -9,58 +9,58 @@
  */
 int _printf(const char *format, ...)
 {
-    va_list list;
-    int count = 0, i = 0, j, find;
-    print_type types[] = {
-        {"c", print_char},
-        {"d", print_decimal},
-        {"i", print_integer},
-        {"s", print_string},
-        {NULL, NULL}
-    };
+	va_list list;
+	int count = 0, i = 0, j, find;
+	print_type types[] = {
+		{"c", print_char},
+		{"d", print_decimal},
+		{"i", print_integer},
+		{"s", print_string},
+		{NULL, NULL}
+	};
 
-    if (format == NULL)
-        return (-1);
+	if (format == NULL)
+		return (-1);
 
-    va_start(list, format);
+	va_start(list, format);
 
-    for (i = 0; format[i]; i++)
-    {
-        if (format[i] == '%')
-        {
-            if (format[i + 1] == '\0')
-                continue;
-            find = 0;
+	for (i = 0; format[i]; i++)
+	{
+		if (format[i] == '%')
+		{
+			if (format[i + 1] == '\0')
+				continue;
+			find = 0;
 
-            for (j = 0; j < 4; j++)  // Mise à jour du nombre de formats dans le tableau
-            {
-                if (format[i + 1] == types[j].format[0])
-                {
-                    count += types[j].func(list);
-                    find = 1;
-                    i++;  // Avancer pour éviter de traiter '%' encore
-                    break;
-                }
-            }
+			for (j = 0; j < 4; j++)
+			{
+				if (format[i + 1] == types[j].format[0])
+				{
+					count += types[j].func(list);
+					find = 1;
+					i++;
+					break;
+				}
+			}
 
-            if (find == 0)
-            {
-                if (format[i + 1] == '%')
-                {
-                    count += write(1, "%", 1);
-                    i++;
-                }
-                else
-                    count += write(1, &format[i], 1);
-            }
-        }
-        else
-        {
-            count += write(1, &format[i], 1);
-        }
-    }
+			if (find == 0)
+			{
+				if (format[i + 1] == '%')
+				{
+					count += write(1, "%", 1);
+					i++;
+				}
+				else
+					count += write(1, &format[i], 1);
+			}
+		}
+		else
+		{
+			count += write(1, &format[i], 1);
+		}
+	}
 
-    va_end(list);
+	va_end(list);
 
-    return (count);
+	return (count);
 }
