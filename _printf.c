@@ -2,12 +2,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-typedef struct print_type
-{
-	char *format;
-	int (*func)(va_list);
-} print_type;
-
 int print_char(va_list args)
 {
 	char c = (char)va_arg(args, int);
@@ -42,15 +36,22 @@ int _printf(const char *format, ...)
 	int count = 0, i = 0;
 	int j;
 
-	print_type types[] = {{"c", print_char}, {"s", print_string}, {"%", print_modulo}, {NULL, NULL}};
+	print_type types[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"%", print_modulo},
+		{NULL, NULL}
+	};
 
 	va_start(args, format);
+
 	while (format && format[i])
 	{
 		if (format[i] == '%')
 		{
 			i++;
 			j = 0;
+
 			while (types[j].format)
 			{
 				if (types[j].format[0] == format[i])
@@ -69,6 +70,8 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
+
 	va_end(args);
 	return (count);
 }
+
