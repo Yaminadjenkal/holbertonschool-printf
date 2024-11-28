@@ -2,15 +2,19 @@
 #define MAIN_H
 
 #include <stdarg.h>
+#include <unistd.h>
 
 int _printf(const char *format, ...);
-int handle_negative(int num, char *buffer, int *len);
-int calculate_length(int num);
-void convert_to_string(int num, char *buffer, int len);
-int print_d(va_list args);
-int print_i(va_list args);
-void print_string(const char *str, int *count);
-void print_invalid_format(char specifier, int *count);
-int _printf_string(const char *format, ...);
 
-#endif /* MAIN_H */
+typedef struct print_type
+{
+    char *format;
+    int (*func)(va_list);
+} print_type;
+
+int print_char(va_list args);
+int print_integer(va_list args);
+int print_decimal(va_list args);
+int print_string(va_list args);
+
+#endif
