@@ -5,17 +5,15 @@
 #include <unistd.h>
 
 /**
- * print_d - Fonction pour gérer le spécificatr
- * @args: Une va_list contenant l'entier imprimer
- *
- * Description : Cette fonction récupère un entier de la va_lt
+ * print_i - Fonction pour gérer le spécificate
+ * @args: Une va_list contenant l'entier a imprimer
+ * Description : Cette fonction récupère un entier de la va_li
  *et l'imprime. Elle gère les nombres négatifs en ajouta
  *un signe moins, et convertit l'entier en chaîne de caractèr
  *pour l'impression.
- *
  * Return: Le nombre de caractères imprim�
  */
-int print_d(va_list args)
+int print_i(va_list args)
 {
 	int num = va_arg(args, int);
 	char buffer[50];
