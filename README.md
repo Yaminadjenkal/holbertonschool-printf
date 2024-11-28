@@ -32,8 +32,7 @@ return (0);
 }
 This will output : Let's try to printf a simple sentence.
 
-## Project Diagram : 
-You can view the project diagram by following this : https://lucid.app/lucidchart/69365634-5427-4728-aa98-d8a2d097ab58/edit?viewport_loc=-31%2C-815%2C1507%2C787%2C0_0&invitationId=inv_1929c86d-94a0-4f02-8ba3-5b117c8a1128
+![name given image(1)](https://cdn.discordapp.com/attachments/423566282051551234/1311833742972813374/NoteGPT_Flowchart_1732835702636.png?ex=674a4be1&is=6748fa61&hm=df4dedfa0376ba66bc907444a6b87f88116403e9be1064e3a8ce28ffb06bac20&)
 
 ## License
 This project is licensed under the MIT Licence
