@@ -4,5 +4,8 @@
 int _printf(const char *format, ...);
 int _printf_modulo(const char *format, ...);
 int print_d(va_list args);
+void convert_to_string(int num, char *buffer, int len);
+int calculate_length(int num);
+int handle_negative(int num, char *buffer, int *len);
 
 #endif /* MAIN_H */
