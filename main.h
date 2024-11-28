@@ -2,28 +2,21 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 /**
- * struct Set - A specifier - function pair
- * @spec: Char - the format specifier
- * @print: Special function implemented to print data of a given
- * specifier to stdout
- *
- * Description: A specifier - function pair
+ * struct print_type - structure to map format specifiers to corresponding functions
+ * @format: The format specifier (e.g. "c", "s")
+ * @func: The function to call when the specifier is found
  */
-typedef struct Set
+typedef struct print_type
 {
-	char spec;
-	int (*print)(va_list arg);
-} set;
+    char *format;
+    int (*func)(va_list args);
+} print_type;
 
-int print_d(va_list list);
-int print_rot13(va_list list);
-int print_rev(va_list list);
-int print_str(va_list list);
-int print_char(va_list list);
-int _printf(const char*, ...);
+int _printf(const char *format, ...);
+int print_char(va_list args);
+int print_string(va_list args);
 
-#endif
+#endif /* MAIN_H */
+

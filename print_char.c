@@ -1,19 +1,13 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
- * print_char - prints out a character
- *
- * @list: A variable list of va_list type from stdarg.h
- * Return: 1
+ * print_char - Function that prints a character
+ * @args: Argument list containing the character to be printed
+ * Return: The number of characters printed (1)
  */
-int print_char(va_list list)
+int print_char(va_list args)
 {
-	char c;
-
-	c = va_arg(list, int);
-
-	if (c == '\0')
-		return (0);
-	write(1, &c, 1);
-	return (1);
+    return (write(1, &va_arg(args, int), 1));
 }
+
