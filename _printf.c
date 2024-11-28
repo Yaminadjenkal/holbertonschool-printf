@@ -1,79 +1,69 @@
-#include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
 
-int print_char(va_list args)
+typedef struct set
 {
-	char c = (char)va_arg(args, int);
-	return (write(1, &c, 1));
-}
-
-int print_string(va_list args)
-{
-	char *str = va_arg(args, char *);
-	int count = 0;
-
-	if (!str)
-		str = "(null)";
-
-	while (str[count])
-	{
-		write(1, &str[count], 1);
-		count++;
-	}
-	return (count);
-}
-
-int print_modulo(va_list args)
-{
-	(void)args;
-	return (write(1, "%%", 2));
-}
+	char spec;
+	int (*print)(va_list list);
+} set;
 
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0, i = 0;
-	int j;
+	int i, j, count = 0, find;
+	va_list list;
 
-	print_type types[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_modulo},
-		{"d", print_d},
-		{"i", print_i},
-		{NULL, NULL}
+	set arguments[] = {
+		{'c', print_char},
+		{'d', print_d},
+		{'i', print_d},
+		{'s', print_str},
+		{'R', print_rot13},
+		{'r', print_rev},
 	};
 
-	va_start(args, format);
+	if (format == NULL)
+		return (-1);
 
-	while (format && format[i])
+	va_start(list, format);
+
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
-			i++;
-			j = 0;
+			if (format[i + 1] == '\0')
+				break;
 
-			while (types[j].format)
+			find = 0;
+
+			for (j = 0; j < 6; j++)
 			{
-				if (types[j].format[0] == format[i])
+				if (format[i + 1] == arguments[j].spec)
 				{
-					count += types[j].func(args);
+					count += arguments[j].print(list);
+					find = 1;
+					i++;
 					break;
 				}
-				j++;
 			}
-			if (!types[j].format)
-				count += write(1, &format[i - 1], 2);
+
+			if (!find)
+			{
+				if (format[i + 1] == '%')
+				{
+					count += write(1, "%", 1);
+					i++;
+				}
+				else
+					count += write(1, &format[i], 1);
+			}
 		}
 		else
 		{
 			count += write(1, &format[i], 1);
 		}
-		i++;
 	}
 
-	va_end(args);
+	va_end(list);
 	return (count);
 }
-
