@@ -5,7 +5,7 @@
  * @num: Le nombre a vérifier.
  * @buffer: Le tampon pour stocker le signe négatif.
  * @len: Le compteur de longueur.
- * Description: Cette fonction vérifie si un nombre est ngatif
+ * Description: Cette fonction vérifie si un nombre est egatif
  * Si c'est le cas, elle ajoute un signe '-'
  * au tampon et retourne la valeur absolue du nombre
  * Return: La valeur absolue du nombre.
@@ -37,12 +37,12 @@ int calculate_length(int num)
 	return (len);
 }
 /**
- *convert_to_string - Convertit le nombre en chaîne de caractèr
+ *convert_to_string - Convertit le nombre en chaîne de caract�es
  *@num: Le nombre a convertir
- *@buffer: Le tampon pour stocker la chaîe
+ *@buffer: Le tampon pour stocker la chaine
  *@len: La longueur du nombre.
  *Description: Cette fonction convertit un nombre entier en une
- *chaîne de caractères et stocke le résultat d
+ *chaîne de caractères et stocke le résul
  *le tampon fourni.
  */
 void convert_to_string(int num, char *buffer, int len)
