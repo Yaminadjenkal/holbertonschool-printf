@@ -1,20 +1,19 @@
 #include "main.h"
-/*
- * File: print_char.c
- *
- * Description: Implements the `print_char` function to print a character
- * from a variadic argument list.
- */
 
 /**
- * print_char - Prints a character to standard output.
- * @args: The variadic argument list.
- * Return: 1 if successful, -1 on error.
+ * print_char - prints out a character
+ *
+ * @list: A variable list of va_list type from stdarg.h
+ * Return: 1
  */
-
-int print_char(va_list args)
+int print_char(va_list list)
 {
-	char c = va_arg(args, int);
+	char c;
 
-	return (write(1, &c, 1));
+	c = va_arg(list, int);
+
+	if (c == '\0')
+		return (0);
+	write(1, &c, 1);
+	return (1);
 }
