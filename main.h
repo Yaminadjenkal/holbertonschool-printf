@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include <stdarg.h>
+
 int _printf(const char *format, ...);
 int handle_negative(int num, char *buffer, int *len);
 int calculate_length(int num);
@@ -11,5 +12,5 @@ int print_i(va_list args);
 void print_string(const char *str, int *count);
 void print_invalid_format(char specifier, int *count);
 int _printf_string(const char *format, ...);
-#endif /* MAIN_H */
 
+#endif /* MAIN_H */
