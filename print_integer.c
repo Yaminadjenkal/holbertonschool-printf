@@ -1,35 +1,33 @@
 #include "main.h"
-#include <unistd.h>
 
-/**
- * print_integer - Function that prints an integer
- * @args: Argument list containing the integer to be printed
- * Return: The number of characters printed
- */
 int print_integer(va_list args)
 {
-    int n = va_arg(args, int);
-    char buffer[50];
-    int i = 0, count = 0;
+    int num = va_arg(args, int);
+    int count = 0;
+    char buffer[20];
+    int i = 0;
 
-    if (n == 0)
-        return write(1, "0", 1);
-
-    if (n < 0)
+    if (num == 0)
     {
-        buffer[i++] = '-';
-        n = -n;
+        return _putchar('0');
     }
 
-    while (n > 0)
+    if (num < 0)
     {
-        buffer[i++] = (n % 10) + '0';
-        n /= 10;
+        count += _putchar('-');
+        num = -num;
     }
 
-    int j;  // Déclaration en dehors de la boucle
-    for (j = i - 1; j >= 0; j--)
-        count += write(1, &buffer[j], 1);
+    while (num > 0)
+    {
+        buffer[i++] = (num % 10) + '0';
+        num /= 10;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+    {
+        count += _putchar(buffer[j]);
+    }
 
     return count;
 }

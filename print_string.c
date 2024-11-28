@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "main.h"
 
 int print_string(va_list args)
@@ -7,14 +6,13 @@ int print_string(va_list args)
     int count = 0;
 
     if (!str)
-        str = "(null)"; // Si la chaîne est NULL, afficher "(null)"
+        str = "(null)";
 
     while (str[count])
     {
-        write(1, &str[count], 1);
+        _putchar(str[count]);
         count++;
     }
-
     return count;
 }
 
