@@ -1,77 +1,88 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
 
-/**
- * _printf - Print and formate a string
- * @format: String to print and to formated
- * Return: (int)
- */
-int _printf(const char *format, ...)
+int print_char(va_list args)
 {
-	int i = 0, inc, count = 0;
-	char c1, c2;
-	va_list args;
+	char c = (char)va_arg(args, int);
+	return (write(1, &c, 1));
+}
 
-	va_start(args, format);
-	while (format[i] != '\0')
+int print_string(va_list args)
+{
+	char *str = va_arg(args, char *);
+	int count = 0;
+
+	if (!str)
+		str = "(null)";
+
+	while (str[count])
 	{
-		int printed = 0;
-		int (*f)(va_list args);
-
-		c1 = format[i];
-		inc = 1;
-
-		if (c1 == '%')
-		{
-			c2 = format[i + 1];
-			if (c2 == '\0')
-			{
-				va_end(args);
-				return (-1);
-			}
-			f = get_format_function(c2);
-			if (f)
-			{
-				count += f(args);
-				inc = 2;
-				printed = 1;
-			}
-		}
-		if (printed == 0)
-		{
-			count += 1;
-			_putchar(c1);
-		}
-		i += inc;
+		write(1, &str[count], 1);
+		count++;
 	}
-	va_end(args);
 	return (count);
 }
 
-/**
- * get_format_function - function to return the function format
- * @c2: character to check
- * Return: Function or NULL
- */
+int print_modulo(va_list args)
+{
+	(void)args;
+	return (write(1, "%%", 2));
+}
+
 int (*get_format_function(char c2))(va_list)
 {
-	int ii;
-	format_t ftypes[] = {
-		{"c", _printf_char},
-		{"s", _printf_string},
-		{"i", _printf_integer},
-		{"d", _printf_integer},
-		{"%", _printf_percent},
-		{"u", _printf_unsignedint},
+	print_type ftypes[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"d", print_d},
+		{"i", print_i},
+		{"%", print_modulo},
+		{NULL, NULL}
 	};
 
-	for (ii = 0; ii < 6; ii++)
+	int ii = 0;
+
+	while (ftypes[ii].format)
 	{
-		if (ftypes[ii].op[0] == c2)
-		{
-			return (ftypes[ii].f);
-		}
+		if (ftypes[ii].format[0] == c2)
+			return ftypes[ii].func;
+		ii++;
 	}
-	return (NULL);
+
+	return NULL;
+}
+
+int _printf(const char *format, ...)
+{
+	va_list args;
+	int count = 0, i = 0;
+	int (*f)(va_list);
+
+	va_start(args, format);
+
+	while (format && format[i])
+	{
+		if (format[i] == '%')
+		{
+			i++;
+			f = get_format_function(format[i]);
+			if (f)
+			{
+				count += f(args);
+			}
+			else
+			{
+				count += write(1, &format[i - 1], 2);
+			}
+		}
+		else
+		{
+			count += write(1, &format[i], 1);
+		}
+		i++;
+	}
+
+	va_end(args);
+	return (count);
 }
