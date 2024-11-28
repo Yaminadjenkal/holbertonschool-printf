@@ -1,66 +1,52 @@
-#include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
 
-/**
- * _printf - Main function that implements a subset of printf functionality
- * @format: The format string containing format specifiers
- * Return: The total number of characters printed
- */
 int _printf(const char *format, ...)
 {
-	va_list list;
-	int count = 0, i = 0, j, find;
-	print_type types[] = {
-		{"c", print_char},
-		{"d", print_decimal},
-		{"i", print_integer},
-		{"s", print_string},
-		{NULL, NULL}
-	};
+	int (*pfunc)(va_list, flags_t *);
+	const char *p;
+	va_list arguments;
+	flags_t flags = {0, 0, 0};
+	register int count = 0;
 
-	if (format == NULL)
+	va_start(arguments, format);
+	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
-
-	va_start(list, format);
-
-	for (i = 0; format[i]; i++)
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = format; *p; p++)
 	{
-		if (format[i] == '%')
+		if (*p == '%')
 		{
-			if (format[i + 1] == '\0')
+			p++;
+			if (*p == '%')
+			{
+				count += _putchar('%');
 				continue;
-			find = 0;
-
-			for (j = 0; j < 4; j++)
-			{
-				if (format[i + 1] == types[j].format[0])
-				{
-					count += types[j].func(list);
-					find = 1;
-					i++;
-					break;
-				}
 			}
-
-			if (find == 0)
+			while (get_flag(*p, &flags))
+				p++;
+			pfunc = get_print(*p);
+			if (pfunc)
 			{
-				if (format[i + 1] == '%')
-				{
-					count += write(1, "%", 1);
-					i++;
-				}
-				else
-					count += write(1, &format[i], 1);
+				count += pfunc(arguments, &flags);
+			}
+			else if (*p == 'r')
+			{
+				count += print_reverse(arguments);
+			}
+			else
+			{
+				count += _putchar('%');
+				count += _putchar(*p);
 			}
 		}
 		else
 		{
-			count += write(1, &format[i], 1);
+			count += _putchar(*p);
 		}
 	}
-
-	va_end(list);
-
+	va_end(arguments);
 	return (count);
 }
