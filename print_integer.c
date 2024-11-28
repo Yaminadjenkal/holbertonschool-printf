@@ -1,6 +1,10 @@
 #include "main.h"
 #include <unistd.h>
-
+/**
+ * print_integer - Function that prints an integer
+ * @args: Argument list containing the integer to be printed
+ * Return: The number of characters printed
+ */
 int print_integer(va_list args)
 {
 	int num = va_arg(args, int);
@@ -12,13 +16,16 @@ int print_integer(va_list args)
 	if (num == 0)
 	{
 		buffer[len++] = '0';
-	} else {
-		if (num < 0) {
+	}
+	else
+	{
+		if (num < 0)
+		{
 			buffer[len++] = '-';
 			temp = -temp;
 		}
-
 		i = len;
+
 		while (temp > 0)
 		{
 			buffer[i++] = (temp % 10) + '0';
@@ -26,9 +33,11 @@ int print_integer(va_list args)
 		}
 
 		j = i - 1;
+
 		for (k = len; k < j; k++, j--)
 		{
 			char tmp = buffer[k];
+
 			buffer[k] = buffer[j];
 			buffer[j] = tmp;
 		}
@@ -36,5 +45,5 @@ int print_integer(va_list args)
 		len = i;
 	}
 
-	return write(1, buffer, len);
+	return (write(1, buffer, len));
 }
