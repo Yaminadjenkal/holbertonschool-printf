@@ -1,29 +1,40 @@
 #include "main.h"
+#include <unistd.h>
 
-int print_integer(va_list args) {
-    int num = va_arg(args, int);
-    char buffer[20];
-    int len = 0;
+int print_integer(va_list args)
+{
+	int num = va_arg(args, int);
+	char buffer[20];
+	int len = 0;
+	int temp = num;
+	int i, j, k;
 
-    if (num == 0) {
-        buffer[len++] = '0';
-    } else {
-        int temp = num;
-        if (num < 0) {
-            buffer[len++] = '-';
-            temp = -temp;
-        }
-        int i = len;
-        while (temp > 0) {
-            buffer[i++] = (temp % 10) + '0';
-            temp /= 10;
-        }
-        for (int i = len, j = i + len - 1; i < j; i++, j--) {
-            char temp_char = buffer[i];
-            buffer[i] = buffer[j];
-            buffer[j] = temp_char;
-        }
-        len = i;
-    }
-    return write(1, buffer, len);
+	if (num == 0)
+	{
+		buffer[len++] = '0';
+	} else {
+		if (num < 0) {
+			buffer[len++] = '-';
+			temp = -temp;
+		}
+
+		i = len;
+		while (temp > 0)
+		{
+			buffer[i++] = (temp % 10) + '0';
+			temp /= 10;
+		}
+
+		j = i - 1;
+		for (k = len; k < j; k++, j--)
+		{
+			char tmp = buffer[k];
+			buffer[k] = buffer[j];
+			buffer[j] = tmp;
+		}
+
+		len = i;
+	}
+
+	return write(1, buffer, len);
 }
