@@ -1,51 +1,32 @@
 #include "main.h"
-#include <stdarg.h>
 #include <unistd.h>
-
-typedef struct print_type
-{
-    char *format;
-    int (*func)(va_list);
-} print_type;
-
-int print_char(va_list args)
-{
-    char c = (char)va_arg(args, int);
-    return (write(1, &c, 1));
-}
-
-int print_string(va_list args)
-{
-    char *str = va_arg(args, char *);
-    int count = 0;
-
-    if (!str)
-        str = "(null)";
-
-    while (str[count])
-    {
-        write(1, &str[count], 1);
-        count++;
-    }
-    return (count);
-}
+#include <stdarg.h>
 
 int _printf(const char *format, ...)
 {
     va_list args;
-    int count = 0, i = 0;
-    int j;
+    int count = 0;
+    int i = 0;
 
-    print_type types[] = {{"c", print_char}, {"s", print_string}, {NULL, NULL}};
+    print_type types[] = 
+    {
+        {"c", print_char},
+        {"i", print_integer},
+        {"d", print_decimal},
+        {"s", print_string},
+        {"r", print_reverse},  // Ajout d'un cas pour %r
+        {NULL, NULL}
+    };
 
     va_start(args, format);
+
     while (format && format[i])
     {
         if (format[i] == '%')
         {
             i++;
-            j = 0;
-            while (types[j].format)
+            int j = 0;
+            while (types[j].format != NULL) 
             {
                 if (types[j].format[0] == format[i])
                 {
@@ -54,15 +35,34 @@ int _printf(const char *format, ...)
                 }
                 j++;
             }
-            if (!types[j].format)
+
+            if (types[j].format == NULL)
+            {
                 count += write(1, &format[i - 1], 2);
-        }
+            }
+        } 
         else
         {
             count += write(1, &format[i], 1);
         }
         i++;
     }
+
     va_end(args);
-    return (count);
+    return count;
+}
+
+int print_reverse(va_list args)
+{
+    char *str = va_arg(args, char*);
+    int len = 0;
+
+    while (str[len] != '\0')
+        len++;
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        write(1, &str[i], 1);
+    }
+    return len;
 }
