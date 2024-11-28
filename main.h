@@ -2,7 +2,7 @@
 #define MAIN_H
 
 #include <stdarg.h>
-
+int _printf(const char *format, ...);
 int handle_negative(int num, char *buffer, int *len);
 int calculate_length(int num);
 void convert_to_string(int num, char *buffer, int len);
