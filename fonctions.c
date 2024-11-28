@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * handle_negative - G√®re les nombres n√©gatifs.
- * @num: Le nombre a v√©rifier.
+ * handle_negative - GËre les nombres nÈ©gatifs.
+ * @num: Le nombre a vÈrifier.
  * @buffer: Le tampon pour stocker le signe n√©gatif.
  * @len: Le compteur de longueur.
  * Description: Cette fonction v√©rifie si un nombre est egatif
@@ -37,12 +37,12 @@ int calculate_length(int num)
 	return (len);
 }
 /**
- *convert_to_string - Convertit le nombre en cha√Æne de caract√es
+ *convert_to_string - Convertit le nombre en chaine de caractËres
  *@num: Le nombre a convertir
  *@buffer: Le tampon pour stocker la chaine
  *@len: La longueur du nombre.
  *Description: Cette fonction convertit un nombre entier en une
- *cha√Æne de caract√®res et stocke le r√©sul
+ *chaine de caractËres et stocke le rÈsultat
  *le tampon fourni.
  */
 void convert_to_string(int num, char *buffer, int len)
