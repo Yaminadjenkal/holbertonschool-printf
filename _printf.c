@@ -40,6 +40,8 @@ int _printf(const char *format, ...)
 		{"c", print_char},
 		{"s", print_string},
 		{"%", print_modulo},
+		{"d", print_d},
+		{"i", print_i},
 		{NULL, NULL}
 	};
 
