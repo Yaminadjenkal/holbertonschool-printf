@@ -21,3 +21,4 @@ int print_modulo(va_list args);
 int (*get_format_function(char c2))(va_list);
 
 #endif /* MAIN_H */
+
