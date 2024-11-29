@@ -1,7 +1,9 @@
+#include <stdio.h>
 #include "holberton.h"
 #include <limits.h>
-#include <stdio.h>
-int main(void) {
+
+int main(void)
+{
     int len;
     int len2;
     unsigned int ui;

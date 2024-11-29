@@ -1,21 +1,38 @@
 #include <unistd.h>
 #include "holberton.h"
 
-int _putchar(char c) {
+int _putchar(char c)
+{
     return write(1, &c, 1);
 }
 
-int print_number(int n) {
+int _puts(char *str)
+{
+    int i = 0;
+    if (str == NULL)
+        str = "(null)";
+    while (str[i])
+    {
+        _putchar(str[i]);
+        i++;
+    }
+    return i;
+}
+
+int print_number(int n)
+{
     int printed_chars = 0;
     unsigned int num = n;
 
-    if (n < 0) {
+    if (n < 0)
+    {
         _putchar('-');
         printed_chars++;
         num = -n;
     }
 
-    if (num / 10) {
+    if (num / 10)
+    {
         printed_chars += print_number(num / 10);
     }
 
@@ -25,10 +42,12 @@ int print_number(int n) {
     return printed_chars;
 }
 
-int print_unsigned(unsigned int n) {
+int print_unsigned(unsigned int n)
+{
     int printed_chars = 0;
 
-    if (n / 10) {
+    if (n / 10)
+    {
         printed_chars += print_unsigned(n / 10);
     }
 
@@ -38,10 +57,12 @@ int print_unsigned(unsigned int n) {
     return printed_chars;
 }
 
-int print_octal(unsigned int n) {
+int print_octal(unsigned int n)
+{
     int printed_chars = 0;
 
-    if (n / 8) {
+    if (n / 8)
+    {
         printed_chars += print_octal(n / 8);
     }
 
@@ -51,11 +72,13 @@ int print_octal(unsigned int n) {
     return printed_chars;
 }
 
-int print_hex(unsigned int n, int uppercase) {
+int print_hex(unsigned int n, int uppercase)
+{
     int printed_chars = 0;
     char *hex_digits = uppercase ? "0123456789ABCDEF" : "0123456789abcdef";
 
-    if (n / 16) {
+    if (n / 16)
+    {
         printed_chars += print_hex(n / 16, uppercase);
     }
 
@@ -65,16 +88,12 @@ int print_hex(unsigned int n, int uppercase) {
     return printed_chars;
 }
 
-int print_pointer(void *ptr) {
+int print_pointer(void *ptr)
+{
     int printed_chars = 0;
     unsigned long addr = (unsigned long)ptr;
 
-    printed_chars += _printf("0x");
-    if (addr / 16) {
-        printed_chars += print_hex(addr, 0);
-    } else {
-        printed_chars += _printf("0");
-    }
+    printed_chars += _puts("0x");
     printed_chars += print_hex(addr, 0);
 
     return printed_chars;
