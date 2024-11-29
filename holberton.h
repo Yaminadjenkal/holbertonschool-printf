@@ -1,14 +1,24 @@
-#ifndef HOLBERTON_H
-#define HOLBERTON_H
-
+#ifndef our_printf
+#define our_printf
+#include <stdio.h>
+#include <stdarg.h>
+/**
+ * struct specifier - struct specifier
+ * @valid: the valid character.
+ * @f: the functions associated.
+ *
+ */
+typedef struct specifier
+{
+	char *valid;
+	int (*f)(va_list);
+} spec;
 int _printf(const char *format, ...);
+int print_c(va_list args);
+int print_s(va_list args);
+int print_d(va_list args);
+int print_i(va_list args);
 int _putchar(char c);
-int _puts(char *str);
-int print_number(int n);
-int print_unsigned(unsigned int n);
-int print_octal(unsigned int n);
-int print_hex(unsigned int n, int uppercase);
-int print_pointer(void *ptr);
-
-#endif /* HOLBERTON_H */
-
+int print_percent(va_list args);
+int (*get_func(char x))(va_list args);
+#endif

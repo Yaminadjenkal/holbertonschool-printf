@@ -1,70 +1,52 @@
 #include <stdarg.h>
-#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "holberton.h"
-
+#include <stddef.h>
 /**
- * _printf - Produces output according to a format
- * @format: A string containing the characters and the specifiers
- *
- * Return: The number of characters printed (excluding the null byte used to 
- * end output to strings)
+ * _printf - recreates the printf function
+ * @format: string with format specifier
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int printed_chars = 0;
-	const char *p = format;
-
-	va_start(args, format);
-
-	while (*p)
+	if (format != NULL)
 	{
-		if (*p == '%')
+		int count = 0, i;
+		int (*m)(va_list);
+		va_list args;
+
+		va_start(args, format);
+		i = 0;
+		if (format[0] == '%' && format[1] == '\0')
+			return (-1);
+		while (format != NULL && format[i] != '\0')
 		{
-			p++;
-			switch (*p)
+			if (format[i] == '%')
 			{
-				case 'c':
-					printed_chars += _putchar(va_arg(args, int));
-					break;
-				case 's':
-					printed_chars += _puts(va_arg(args, char *));
-					break;
-				case '%':
-					printed_chars += _putchar('%');
-					break;
-				case 'd':
-				case 'i':
-					printed_chars += print_number(va_arg(args, int));
-					break;
-				case 'u':
-					printed_chars += print_unsigned(va_arg(args, unsigned int));
-					break;
-				case 'o':
-					printed_chars += print_octal(va_arg(args, unsigned int));
-					break;
-				case 'x':
-					printed_chars += print_hex(va_arg(args, unsigned int), 0);
-					break;
-				case 'X':
-					printed_chars += print_hex(va_arg(args, unsigned int), 1);
-					break;
-				case 'p':
-					printed_chars += print_pointer(va_arg(args, void *));
-					break;
-				default:
-					printed_chars += _putchar('%') + _putchar(*p);
-					break;
+				if (format[i + 1] == '%')
+				{
+					count += _putchar(format[i]);
+					i += 2;
+				}
+				else
+				{
+					m = get_func(format[i + 1]);
+					if (m)
+						count += m(args);
+					else
+						count = _putchar(format[i]) + _putchar(format[i + 1]);
+					i += 2;
+				}
+			}
+			else
+			{
+				count += _putchar(format[i]);
+				i++;
 			}
 		}
-		else
-		{
-			printed_chars += _putchar(*p);
-		}
-		p++;
+		va_end(args);
+		return (count);
 	}
-
-	va_end(args);
-	return (printed_chars);
+	return (-1);
 }
-
