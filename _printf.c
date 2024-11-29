@@ -2,34 +2,12 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int print_char(va_list args)
-{
-    char c = (char)va_arg(args, int);
-    return (write(1, &c, 1));
-}
-
-int print_string(va_list args)
-{
-    char *str = va_arg(args, char *);
-    int count = 0;
-
-    if (!str)
-        str = "(null)";
-
-    while (str[count])
-    {
-        write(1, &str[count], 1);
-        count++;
-    }
-    return (count);
-}
-
-int print_modulo(va_list args)
-{
-    (void)args;
-    return (write(1, "%%", 2));
-}
-
+/**
+ * get_format_function - Selects the correct function to perform the operation.
+ * @c2: The format specifier.
+ * 
+ * Return: A pointer to the function that corresponds to the specifier.
+ */
 int (*get_format_function(char c2))(va_list)
 {
     print_type ftypes[] = {
@@ -38,6 +16,7 @@ int (*get_format_function(char c2))(va_list)
         {"d", print_d},
         {"i", print_i},
         {"%", print_modulo},
+        {"r", print_reverse},
         {NULL, NULL}
     };
 
@@ -53,6 +32,15 @@ int (*get_format_function(char c2))(va_list)
     return NULL;
 }
 
+/**
+ * _printf - Produces output according to a format.
+ * @format: A character string containing the format specifiers.
+ * 
+ * Description: This function mimics the standard printf function.
+ *              It handles conversion specifiers such as %c, %s, %d, %i, %, and %r.
+ * 
+ * Return: The number of characters printed.
+ */
 int _printf(const char *format, ...)
 {
     va_list args;

@@ -19,6 +19,5 @@ int print_char(va_list args);
 int print_string(va_list args);
 int print_modulo(va_list args);
 int (*get_format_function(char c2))(va_list);
-
+int print_reverse(va_list args);
 #endif /* MAIN_H */
-
