@@ -1,15 +1,17 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
 
 /**
  * print_char - Prints a character.
- * @args: Argument list containing the character to be printed.
+ * @args: The argument list.
+ * @buffer: The buffer to store the character.
+ * @buffer_index: The index in the buffer to store the character.
  * 
- * Return: The number of characters printed.
+ * Return: The number of characters printed (always 1).
  */
-int print_char(va_list args)
+int print_char(va_list args, char *buffer, int *buffer_index)
 {
-    char c = (char)va_arg(args, int);
-    return (write(1, &c, 1));
+    char c = (char) va_arg(args, int);
+    buffer[(*buffer_index)++] = c;
+    return 1;
 }
+
